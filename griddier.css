@@ -1,0 +1,37 @@
+:root {
+  --hex-size: 100px;
+  --hex-size2: 115.47005px;
+  --cellColumns: 6;
+  --cellRows: 5;
+}
+
+main {  
+  counter-reset: cell;
+  
+  display: grid;
+  margin: var(--hex-size) var(--hex-size2);
+  grid-template-columns: repeat(var(--cellColumns), calc(var(--hex-size2) * 0.75 + 2px));
+  grid-template-rows: repeat(var(--cellRows), calc(var(--hex-size) + 3px));
+}
+
+main > div {
+  height: var(--hex-size);
+  width: var(--hex-size2);
+  background-color: green;
+  clip-path: polygon(75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%, 25% 0);
+  position: relative;
+  left: calc(var(--hex-size2) * -0.125)
+}
+main > div::before {
+  position: absolute;
+  left: 30px;
+  counter-increment: cell;
+  content: counter(cell);
+}
+
+main > div:nth-child(even) {
+  top: calc(var(--hex-size) * -0.5);
+}
+main > div:hover {
+  background-color: deeppink;
+}
