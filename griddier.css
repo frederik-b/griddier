@@ -1,37 +1,43 @@
-:root {
+:host {
   --hex-size: 100px;
   --hex-size2: 115.47005px;
   --cellColumns: 6;
   --cellRows: 5;
-}
-
-main {  
   counter-reset: cell;
-  
-  display: grid;
-  margin: var(--hex-size) var(--hex-size2);
-  grid-template-columns: repeat(var(--cellColumns), calc(var(--hex-size2) * 0.75 + 2px));
-  grid-template-rows: repeat(var(--cellRows), calc(var(--hex-size) + 3px));
 }
 
-main > div {
+grid-body {  
+  position: relative;
+}
+
+grid-cell {
+  display: inline-block;
   height: var(--hex-size);
   width: var(--hex-size2);
-  background-color: green;
+  background-color: lightgreen;
   clip-path: polygon(75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%, 25% 0);
-  position: relative;
-  left: calc(var(--hex-size2) * -0.125)
-}
-main > div::before {
   position: absolute;
-  left: 30px;
-  counter-increment: cell;
-  content: counter(cell);
+}
+grid-cell.active {
+  background-color: green;
+}
+grid-cell.phantom {
+  background-color: transparent;
+}
+grid-cell::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  content: attr(column) '/' attr(row);
 }
 
-main > div:nth-child(even) {
+grid-cell[even] {
   top: calc(var(--hex-size) * -0.5);
 }
-main > div:hover {
+grid-cell:hover {
   background-color: deeppink;
+}
+grid-cell.active:hover {
+  background-color: crimson;
 }
